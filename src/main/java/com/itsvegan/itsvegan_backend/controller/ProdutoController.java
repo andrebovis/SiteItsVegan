@@ -1,28 +1,27 @@
 package com.itsvegan.itsvegan_backend.controller;
 
-import com.itsvegan.itsvegan_backend.model.Produto;
-import com.itsvegan.itsvegan_backend.service.ProdutoService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import com.itsvegan.itsvegan_backend.model.Produto;
+import com.itsvegan.itsvegan_backend.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
 
-    private final ProdutoService produtoService;
+    private final ProdutoRepository repository;
 
-    public ProdutoController(ProdutoService produtoService) {
-        this.produtoService = produtoService;
+    public ProdutoController(ProdutoRepository repository) {
+        this.repository = repository;
     }
 
     @GetMapping
-    public List<Produto> listarTodos() {
-        return produtoService.listarTodos();
+    public List<Produto> listar() {
+        return repository.findAll();
     }
 
     @PostMapping
-    public Produto criar(@RequestBody Produto produto) {
-        return produtoService.salvar(produto);
+    public Produto adicionar(@RequestBody Produto produto) {
+        return repository.save(produto);
     }
 }
