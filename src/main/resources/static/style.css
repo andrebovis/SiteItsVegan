@@ -1,20 +1,81 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0; /* Um cinza claro para o fundo */
-    color: #333; /* Cor de texto padrão */
-    margin: 0;
-    padding: 20px;
-}
+     font-family: 'Arial', sans-serif;
+     background: linear-gradient(135deg, #f0f8ff, #e6e6fa); /* Um fundo suave */
+     color: #333;
+     margin: 0;
+     padding: 20px;
+     display: flex;
+     flex-direction: column;
+     align-items: center; /* Centralizar o conteúdo */
+ }
 
-h1 {
-    color: #4b0082; /* Roxo old school */
-}
+ header {
+     background-color: #4b0082; /* Roxo old school como cor principal do header */
+     color: #ffd700; /* Amarelo para o texto do header */
+     padding: 20px 0;
+     text-align: center;
+     width: 100%;
+     margin-bottom: 20px;
+ }
 
-a {
-    color: #ffd700; /* Amarelo da marca */
-    text-decoration: none;
-}
+ header h1 {
+     margin: 0;
+     font-size: 2.5em;
+ }
 
-a:hover {
-    color: #228b22; /* Verde da marca */
-}
+ header a {
+     color: #f0f8ff; /* Branco para o link de voltar na header */
+     text-decoration: none;
+     margin-right: 20px;
+ }
+
+ nav {
+     background-color: #f0e68c; /* Um amarelo mais suave para a navegação */
+     padding: 10px;
+     border-radius: 5px;
+     margin-bottom: 20px;
+ }
+
+ nav a {
+     color: #4b0082;
+     text-decoration: none;
+     margin: 0 15px;
+     font-weight: bold;
+ }
+
+ main {
+     background-color: #fff;
+     padding: 30px;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     width: 80%;
+     max-width: 960px;
+ }
+
+ h1, h2 {
+     color: #4b0082; /* Roxo para os títulos */
+ }
+
+ a {
+     color: #228b22; /* Verde para os links dentro do conteúdo principal */
+     text-decoration: none;
+     font-weight: bold;
+ }
+
+ a:hover {
+     text-decoration: underline;
+     color: #ffd700; /* Amarelo ao passar o mouse */
+ }
+
+ .menu-item {
+     border-bottom: 1px dashed #ccc;
+     padding: 15px 0;
+ }
+
+ .menu-item:last-child {
+     border-bottom: none;
+ }
+
+ .menu-item h3 {
+     margin: 0 0 5px 0;
+     color: #4

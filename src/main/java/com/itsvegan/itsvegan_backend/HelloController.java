@@ -11,8 +11,8 @@ public class HelloController {
         return "index.html";
     }
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello, Its Vegan";
+    @GetMapping("/cardapio")
+    public String cardapio() {
+        return "cardapio.html";
     }
 }
