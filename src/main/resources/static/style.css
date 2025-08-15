@@ -1,0 +1,20 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0; /* Um cinza claro para o fundo */
+    color: #333; /* Cor de texto padrão */
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #4b0082; /* Roxo old school */
+}
+
+a {
+    color: #ffd700; /* Amarelo da marca */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #228b22; /* Verde da marca */
+}
