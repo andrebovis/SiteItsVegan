@@ -1,8 +1,8 @@
 :root {
-    --primary-color: #4B0082; /* Roxo */
-    --secondary-color: #FFD700; /* Amarelo */
-    --accent-color: #228B22; /* Verde */
-    --background-color: #f0f8ff; /* Fundo suave */
+    --primary-color: #4B0082;
+    --secondary-color: #FFD700; 
+    --accent-color: #228B22; 
+    --background-color: #f0f8ff; 
     --text-color: #333;
 }
 
