@@ -1,0 +1,14 @@
+body {
+    background-color: #FFFF00; /* Amarelo */
+}
+
+/* Exemplo de cor roxa para texto */
+h1, h2, h3, h4, h5, h6,
+p, a {
+    color: #800080; /* Roxo */
+}
+
+/* Outros elementos que podem precisar de cor */
+.header-caption h1, .header-caption h3 {
+    color: #800080;
+}

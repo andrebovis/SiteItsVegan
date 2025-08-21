@@ -15,4 +15,14 @@ public class HelloController {
     public String cardapio() {
         return "cardapio.html";
     }
+    
+    @GetMapping("/login")
+    public String login() {
+        return "login.html";
+    }
+
+    @GetMapping("/cadastro")
+    public String cadastro() {
+        return "cadastro.html";
+    }
 }

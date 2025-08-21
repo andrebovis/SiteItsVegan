@@ -1,17 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Its Vegan</title>
+    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
+    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="flexslider.css">
+    <link rel="stylesheet" href="owl.carousel.css">
+    <link rel="stylesheet" href="owl.theme.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pricing.css">
+
+    <style>
+        body {
+            background-color: #FFFF00; /* Fundo Amarelo */
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            text-align: center;
+        }
+        .login-container h2 {
+            color: #800080; /* Roxo */
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .login-container form input[type="text"],
+        .login-container form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-container form button {
+            background-color: #800080; /* Roxo */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-container p a {
+            color: #800080; /* Roxo */
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
-    <h1>Página de Login</h1>
-    <form action="/login" method="post">
-        <label for="username">Nome de Usuário:</label><br>
-        <input type="text" id="username" name="username"><br>
-        <label for="password">Senha:</label><br>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="submit" value="Entrar">
-    </form>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="email" name="email" placeholder="Email" required><br>
+            <input type="password" id="senha" name="senha" placeholder="Senha" required><br>
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
+        <div id="message" style="margin-top: 15px;"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').on('submit', function(event) {
+                event.preventDefault(); // Impede o envio do formulário tradicional
+
+                var email = $('#email').val();
+                var senha = $('#senha').val();
+
+                var loginData = {
+                    email: email,
+                    senha: senha
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/api/clientes/login', // O endpoint do seu ClienteController
+                    contentType: 'application/json',
+                    data: JSON.stringify(loginData),
+                    success: function(response) {
+                        // Lidar com a resposta de sucesso do servidor
+                        $('#message').text(response).css('color', 'green');
+                        // Em um projeto real, você redirecionaria o usuário
+                        // window.location.href = '/dashboard'; 
+                    },
+                    error: function(xhr, status, error) {
+                        // Lidar com erros de login
+                        var errorMessage = "Erro no login. Verifique suas credenciais.";
+                        $('#message').text(errorMessage).css('color', 'red');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
