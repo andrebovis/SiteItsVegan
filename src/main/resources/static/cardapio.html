@@ -2,16 +2,30 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Its Vegan - Cardápio</title>
+    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
+    
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="flexslider.css">
+    <link rel="stylesheet" href="owl.carousel.css">
+    <link rel="stylesheet" href="owl.theme.css">
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="pricing.css">
+
     <style>
         .menu-item {
             border-bottom: 1px dashed #ccc;
             padding: 15px 0;
+            margin-bottom: 10px;
         }
         .menu-item h3 {
             margin: 0 0 5px 0;
-            color: #4b0082;
+            color: #4b0082; /* Roxo */
+            font-weight: bold;
         }
         .menu-item p {
             margin: 5px 0 10px 0;
@@ -19,49 +33,111 @@
         }
         .price {
             font-weight: bold;
-            color: #228b22;
+            color: #228b22; /* Verde */
             font-size: 1.1em;
+            float: right;
+        }
+        .container-cardapio {
+            padding-top: 100px;
+            padding-bottom: 50px;
+        }
+        #menu-list h2 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            color: #800080; /* Roxo */
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Nosso Cardápio</h1>
-        <a href="/">Voltar para a Home</a>
+    <header id="navigation" class="navbar-fixed-top navbar">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <h1 class="logo">
+                        <img id="logo" src="images/Logo_main.png" alt="Its Vegan">
+                    </h1>
+                </a>
+            </div>
+            <nav class="collapse navbar-collapse" role="navigation">
+                <ul id="nav" class="nav navbar-nav navbar-right">
+                    <li><a href="/">Início</a></li>
+                    <li class="current"><a href="/cardapio">Cardápio</a></li>
+                    <li><a href="/nossa-proposta">Nossa Ideia</a></li>
+                    <li><a href="/armazem">Armazém</a></li>
+                    <li><a href="/carreiras">Carreira</a></li>
+                    <li><a href="/faq">FAQ</a></li>
+                    <li><a href="/contato">Contato</a></li>
+                    <li><a href="/aniversarios">Aniversários</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <nav>
-        <a href="/">Home</a>
-        <a href="/historia">Nossa História</a>
-        <a href="/cardapio">Nosso Cardápio</a>
-        <a href="/eventos">Eventos</a>
-    </nav>
+    <div class="container container-cardapio">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <h1>Nosso Cardápio</h1>
+                <p class="lead">Deliciosas opções 100% à base de plantas, feitas com carinho e ingredientes frescos.</p>
+            </div>
+        </div>
+        
+        <div class="row" id="menu-list">
+            <p>Carregando cardápio...</p>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jssor.core.js"></script>
+    <script src="js/jssor.utils.js"></script>
+    <script src="js/jssor.slider.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/script.js"></script>
 
-    <main>
-        <h2>Combos</h2>
-        <div class="menu-item">
-            <h3>Combo Palermo, Fritas e Bebida</h3>
-            <p>Sanduíche com 3 pedaços de linguiça plant based, vinagrete com limão siciliano, maionese de castanhas e chimichuri, fritas e bebida a sua escolha.</p>
-            <span class="price">R$ 33,62</span>
-        </div>
-        <div class="menu-item">
-            <h3>Combo Romerberg, Fritas e Bebida</h3>
-            <p>Hotdog com linguiça (plant based), chucrute temperado e mostarda dijon, fritas e bebida a sua escolha.</p>
-            <span class="price">R$ 35,06</span>
-        </div>
-
-        <h2>Burgers</h2>
-        <div class="menu-item">
-            <h3>Gangnam Korean Style Chicken Burger</h3>
-            <p>Hambúrguer de frango plant based, alface fresca, queijo prato de castanha, maionese de gochujang, repolho roxo, abobrinha, cebolinha e cenoura grelhados.</p>
-            <span class="price">R$ 35,93</span>
-        </div>
-        <div class="menu-item">
-            <h3>Manhattan Smash Meat Burger</h3>
-            <p>Hambúrguer blend da casa com cebola e alho, pão de burger com gergelim, queijo prato de castanhas, ketchup e mostarda.</p>
-            <span class="price">R$ 21,53</span>
-        </div>
-        <h2>Sobremesas</h2>
-        </main>
+    <script>
+        $(document).ready(function() {
+            // Chamada para o backend
+            $.ajax({
+                url: '/produtos',
+                type: 'GET',
+                success: function(produtos) {
+                    var htmlContent = '';
+                    
+                    // Verifica se a lista de produtos não está vazia
+                    if (produtos.length > 0) {
+                        // Iterar sobre a lista de produtos recebida da API
+                        $.each(produtos, function(index, produto) {
+                            htmlContent += '<div class="col-md-6">';
+                            htmlContent += '<div class="menu-item">';
+                            htmlContent += '<h3>' + produto.nome + '</h3>';
+                            // Supondo que você tenha uma descrição no seu modelo de Produto
+                            //htmlContent += '<p>' + produto.descricao + '</p>';
+                            htmlContent += '<span class="price">R$ ' + produto.preco.toFixed(2).replace('.', ',') + '</span>';
+                            htmlContent += '</div></div>';
+                        });
+                    } else {
+                        htmlContent = '<p class="text-center">Nenhum produto cadastrado no momento.</p>';
+                    }
+                    
+                    // Substitui o conteúdo da div #menu-list
+                    $('#menu-list').html(htmlContent);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro ao carregar o cardápio: " + error);
+                    $('#menu-list').html('<p class="text-center">Ocorreu um erro ao carregar o cardápio. Tente novamente mais tarde.</p>');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
