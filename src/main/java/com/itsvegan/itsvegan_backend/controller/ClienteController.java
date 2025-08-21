@@ -25,13 +25,13 @@ public class ClienteController {
     public List<Cliente> getAllClientes() {
         return clienteRepository.findAll();
     }
-
+ 
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
         Optional<Cliente> cliente = clienteRepository.findById(id);
         return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
+    
     @PostMapping
     public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
         String senhaCriptografada = passwordEncoder.encode(cliente.getSenha());
@@ -44,7 +44,20 @@ public class ClienteController {
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         System.out.println("Tentativa de login recebida para o email: " + loginRequest.getEmail());
         
-        // Retornamos uma resposta de sucesso temporária
-        return ResponseEntity.ok("Login recebido com sucesso. Lógica de autenticação será implementada em breve.");
+        Optional<Cliente> clienteOptional = clienteRepository.findByEmail(loginRequest.getEmail());
+
+        if (clienteOptional.isPresent()) {
+            Cliente cliente = clienteOptional.get();
+
+            boolean senhaCorreta = passwordEncoder.matches(loginRequest.getSenha(), cliente.getSenha());
+
+            if (senhaCorreta) {
+                return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo(a), " + cliente.getNome() + ".");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado.");
+        }
     }
 }
