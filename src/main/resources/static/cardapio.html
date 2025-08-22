@@ -24,7 +24,7 @@
         }
         .menu-item h3 {
             margin: 0 0 5px 0;
-            color: #4b0082; /* Roxo */
+            color: #4b0082;
             font-weight: bold;
         }
         .menu-item p {
@@ -33,7 +33,7 @@
         }
         .price {
             font-weight: bold;
-            color: #228b22; /* Verde */
+            color: #228b22;
             font-size: 1.1em;
             float: right;
         }
@@ -44,7 +44,7 @@
         #menu-list h2 {
             margin-top: 30px;
             margin-bottom: 20px;
-            color: #800080; /* Roxo */
+            color: #800080;
             font-weight: bold;
         }
     </style>
@@ -106,30 +106,43 @@
 
     <script>
         $(document).ready(function() {
-            // Chamada para o backend
             $.ajax({
                 url: '/produtos',
                 type: 'GET',
                 success: function(produtos) {
                     var htmlContent = '';
-                    
-                    // Verifica se a lista de produtos não está vazia
+                    var categorias = {};
+
                     if (produtos.length > 0) {
-                        // Iterar sobre a lista de produtos recebida da API
                         $.each(produtos, function(index, produto) {
-                            htmlContent += '<div class="col-md-6">';
-                            htmlContent += '<div class="menu-item">';
-                            htmlContent += '<h3>' + produto.nome + '</h3>';
-                            // Supondo que você tenha uma descrição no seu modelo de Produto
-                            //htmlContent += '<p>' + produto.descricao + '</p>';
-                            htmlContent += '<span class="price">R$ ' + produto.preco.toFixed(2).replace('.', ',') + '</span>';
-                            htmlContent += '</div></div>';
+                            var categoria = produto.categoria;
+                            if (!categorias[categoria]) {
+                                categorias[categoria] = [];
+                            }
+                            categorias[categoria].push(produto);
                         });
+
+                        $.each(categorias, function(categoria, listaProdutos) {
+                            htmlContent += '<div class="col-md-12">';
+                            htmlContent += '<h2>' + categoria + '</h2>';
+                            htmlContent += '</div>';
+
+                            $.each(listaProdutos, function(index, produto) {
+                                htmlContent += '<div class="col-md-6">';
+                                htmlContent += '<div class="menu-item">';
+                                htmlContent += '<h3>' + produto.nome + '</h3>';
+                                if (produto.descricao) {
+                                    htmlContent += '<p>' + produto.descricao + '</p>';
+                                }
+                                htmlContent += '<span class="price">R$ ' + produto.preco.toFixed(2).replace('.', ',') + '</span>';
+                                htmlContent += '</div></div>';
+                            });
+                        });
+
                     } else {
                         htmlContent = '<p class="text-center">Nenhum produto cadastrado no momento.</p>';
                     }
-                    
-                    // Substitui o conteúdo da div #menu-list
+
                     $('#menu-list').html(htmlContent);
                 },
                 error: function(xhr, status, error) {
