@@ -7,7 +7,7 @@
     
     <style>
         body {
-            background-color: #FFD700; /* Fundo amarelo semi-forte */
+            background-color: #FFD700;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
@@ -18,23 +18,23 @@
         }
 
         h1 {
-            color: #6A1B9A; /* Título em roxo */
+            color: #6A1B9A; 
         }
         
         label {
-            color: #6A1B9A; /* Rótulos em roxo */
+            color: #6A1B9A; 
         }
 
         input[type="text"],
         input[type="email"],
         input[type="password"] {
-            border: 2px solid #6A1B9A; /* Borda dos campos em roxo */
+            border: 2px solid #6A1B9A;
             padding: 8px;
             border-radius: 5px;
         }
 
         button {
-            background-color: #4CAF50; /* Fundo do botão em verde */
+            background-color: #4CAF50; 
             color: white;
             padding: 10px 20px;
             border: none;
@@ -44,11 +44,11 @@
         }
         
         button:hover {
-            background-color: #45a049; /* Verde mais escuro ao passar o mouse */
+            background-color: #45a049; 
         }
         
         #formCadastro {
-            background-color: #FFF9C4; /* Um tom de amarelo mais claro para o formulário */
+            background-color: #FFF9C4; 
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -72,23 +72,19 @@
 
     <script>
         document.getElementById('formCadastro').addEventListener('submit', function(event) {
-            // Previne o comportamento padrão do formulário (recarregar a página)
             event.preventDefault();
 
-            // Pega os valores dos campos
             const nome = document.getElementById('nome').value;
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
 
-            // Cria o objeto JSON com os dados
             const dadosCliente = {
                 nome: nome,
                 email: email,
                 senha: senha
             };
 
-            // Envia os dados para a nossa API usando fetch
-            fetch('http://localhost:8080/api/clientes', {
+            fetch('http://localhost:8080/clientes', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -104,7 +100,6 @@
             .then(data => {
                 console.log('Sucesso:', data);
                 alert('Cadastro realizado com sucesso!');
-                // Limpa o formulário após o sucesso
                 document.getElementById('formCadastro').reset();
             })
             .catch((error) => {
