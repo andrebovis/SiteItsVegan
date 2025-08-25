@@ -1,18 +1,17 @@
 package com.itsvegan.itsvegan_backend.controller;
 
-import com.itsvegan.itsvegan_backend.dto.LoginRequest;
 import com.itsvegan.itsvegan_backend.model.Cliente;
 import com.itsvegan.itsvegan_backend.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -25,39 +24,36 @@ public class ClienteController {
     public List<Cliente> getAllClientes() {
         return clienteRepository.findAll();
     }
- 
-    @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-        return cliente.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    
+
     @PostMapping
-    public ResponseEntity<Cliente> cadastrarCliente(@RequestBody Cliente cliente) {
-        String senhaCriptografada = passwordEncoder.encode(cliente.getSenha());
-        cliente.setSenha(senhaCriptografada);
-        Cliente novoCliente = clienteRepository.save(cliente);
-        return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+    public Cliente createCliente(@RequestBody Cliente cliente) {
+        String hashedPassword = passwordEncoder.encode(cliente.getSenha());
+        cliente.setSenha(hashedPassword);
+        return clienteRepository.save(cliente);
     }
     
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        System.out.println("Tentativa de login recebida para o email: " + loginRequest.getEmail());
-        
-        Optional<Cliente> clienteOptional = clienteRepository.findByEmail(loginRequest.getEmail());
+    @GetMapping("/{id}")
+    public Optional<Cliente> getClienteById(@PathVariable Long id) {
+        return clienteRepository.findById(id);
+    }
 
-        if (clienteOptional.isPresent()) {
-            Cliente cliente = clienteOptional.get();
+    @GetMapping("/whatsapp/{id}")
+    public RedirectView redirectWhatsapp(@PathVariable Long id) {
+        Optional<Cliente> optionalCliente = clienteRepository.findById(id);
 
-            boolean senhaCorreta = passwordEncoder.matches(loginRequest.getSenha(), cliente.getSenha());
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+            String numero = cliente.getTelefone();
+            
+            // Remove o '+' e qualquer outro caractere que não seja um dígito
+            String numeroLimpo = numero.replaceAll("[^0-9]", "");
+            
+            String urlWhatsapp = "https://wa.me/" + numeroLimpo;
 
-            if (senhaCorreta) {
-                return ResponseEntity.ok("Login realizado com sucesso! Bem-vindo(a), " + cliente.getNome() + ".");
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Senha incorreta.");
-            }
+            return new RedirectView(urlWhatsapp);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email não encontrado.");
+            // Se o cliente não for encontrado, redireciona para a lista de clientes
+            return new RedirectView("/clientes");
         }
     }
 }

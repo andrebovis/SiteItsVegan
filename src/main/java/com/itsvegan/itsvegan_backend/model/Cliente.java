@@ -15,18 +15,18 @@ public class Cliente {
     private String nome;
     private String email;
     private String senha;
+    private String telefone;
 
-    // Construtor vazio para o JPA
     public Cliente() {
     }
 
-    public Cliente(String nome, String email, String senha) {
+    public Cliente(String nome, String email, String senha, String telefone) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.telefone = telefone;
     }
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
@@ -47,7 +47,7 @@ public class Cliente {
         return email;
     }
 
-    public  void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -57,5 +57,13 @@ public class Cliente {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
