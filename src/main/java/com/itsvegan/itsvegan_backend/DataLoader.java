@@ -20,12 +20,10 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        
-        produtoRepository.deleteAll();
-
+    
         double desconto = 0.23;
 
-        // Combos
+        
         Produto p1 = new Produto("Combos", "Combo Palermo, Fritas e Bebida", "Sanduíche com 3 pedaços de linguiça plant based, vinagrete com limão siciliano, maionese de castanhas e chimichuri, fritas e bebida a sua escolha.", 43.70);
         double preco1 = calcularPrecoFinal(p1.getPreco(), desconto);
         p1.setPreco(preco1);
