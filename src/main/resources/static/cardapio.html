@@ -3,53 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Its Vegan - Cardápio</title>
-    <link rel="shortcut icon" href="images/fav.png" type="image/x-icon">
+    <title>Cardápio - Its Vegan</title>
     
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="animate.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
-    <link rel="stylesheet" href="flexslider.css">
-    <link rel="stylesheet" href="owl.carousel.css">
-    <link rel="stylesheet" href="owl.theme.css">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="pricing.css">
+    <link rel="shortcut icon" href="/images/fav.png" type="image/x-icon">
+    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 
-    <style>
-        .menu-item {
-            border-bottom: 1px dashed #ccc;
-            padding: 15px 0;
-            margin-bottom: 10px;
-        }
-        .menu-item h3 {
-            margin: 0 0 5px 0;
-            color: #4b0082;
-            font-weight: bold;
-        }
-        .menu-item p {
-            margin: 5px 0 10px 0;
-            color: #666;
-        }
-        .price {
-            font-weight: bold;
-            color: #228b22;
-            font-size: 1.1em;
-            float: right;
-        }
-        .container-cardapio {
-            padding-top: 100px;
-            padding-bottom: 50px;
-        }
-        #menu-list h2 {
-            margin-top: 30px;
-            margin-bottom: 20px;
-            color: #800080;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/animate.css">
+    <link rel="stylesheet" href="/font-awesome.min.css">
+    <link rel="stylesheet" href="/flexslider.css">
+    <link rel="stylesheet" href="/owl.carousel.css">
+    <link rel="stylesheet" href="/owl.theme.css">
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/pricing.css">
 </head>
 <body>
+
     <header id="navigation" class="navbar-fixed-top navbar">
         <div class="container">
             <div class="navbar-header">
@@ -61,10 +33,11 @@
                 </button>
                 <a class="navbar-brand" href="/">
                     <h1 class="logo">
-                        <img id="logo" src="images/Logo_main.png" alt="Its Vegan">
+                        <img id="logo" src="/images/Logo_main.png" alt="Its Vegan">
                     </h1>
                 </a>
             </div>
+
             <nav class="collapse navbar-collapse" role="navigation">
                 <ul id="nav" class="nav navbar-nav navbar-right">
                     <li><a href="/">Início</a></li>
@@ -81,76 +54,25 @@
         </div>
     </header>
 
-    <div class="container container-cardapio">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 text-center">
-                <h1>Nosso Cardápio</h1>
-                <p class="lead">Deliciosas opções 100% à base de plantas, feitas com carinho e ingredientes frescos.</p>
+    <div class="container" style="padding: 60px 0;">
+        <section id="menu-content">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h2>Nosso Cardápio</h2>
+                    <p>Aqui você encontra todas as nossas delícias plant-based.</p>
+                </div>
             </div>
-        </div>
-        
-        <div class="row" id="menu-list">
-            <p>Carregando cardápio...</p>
-        </div>
+        </section>
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/jssor.core.js"></script>
-    <script src="js/jssor.utils.js"></script>
-    <script src="js/jssor.slider.js"></script>
-    <script src="js/jquery.validate.js"></script>
-    <script src="js/jquery.mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/wow.min.js"></script>
-    <script src="js/script.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $.ajax({
-                url: '/produtos',
-                type: 'GET',
-                success: function(produtos) {
-                    var htmlContent = '';
-                    var categorias = {};
-
-                    if (produtos.length > 0) {
-                        $.each(produtos, function(index, produto) {
-                            var categoria = produto.categoria;
-                            if (!categorias[categoria]) {
-                                categorias[categoria] = [];
-                            }
-                            categorias[categoria].push(produto);
-                        });
-
-                        $.each(categorias, function(categoria, listaProdutos) {
-                            htmlContent += '<div class="col-md-12">';
-                            htmlContent += '<h2>' + categoria + '</h2>';
-                            htmlContent += '</div>';
-
-                            $.each(listaProdutos, function(index, produto) {
-                                htmlContent += '<div class="col-md-6">';
-                                htmlContent += '<div class="menu-item">';
-                                htmlContent += '<h3>' + produto.nome + '</h3>';
-                                if (produto.descricao) {
-                                    htmlContent += '<p>' + produto.descricao + '</p>';
-                                }
-                                htmlContent += '<span class="price">R$ ' + produto.preco.toFixed(2).replace('.', ',') + '</span>';
-                                htmlContent += '</div></div>';
-                            });
-                        });
-
-                    } else {
-                        htmlContent = '<p class="text-center">Nenhum produto cadastrado no momento.</p>';
-                    }
-
-                    $('#menu-list').html(htmlContent);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Erro ao carregar o cardápio: " + error);
-                    $('#menu-list').html('<p class="text-center">Ocorreu um erro ao carregar o cardápio. Tente novamente mais tarde.</p>');
-                }
-            });
-        });
-    </script>
+    <script src="/js/jssor.core.js"></script>
+    <script src="/js/jssor.utils.js"></script>
+    <script src="/js/jssor.slider.js"></script>
+    <script src="/js/jquery.validate.js"></script>
+    <script src="/js/jquery.mixitup.min.js"></script>
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

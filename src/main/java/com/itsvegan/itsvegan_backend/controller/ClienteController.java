@@ -45,14 +45,14 @@ public class ClienteController {
             Cliente cliente = optionalCliente.get();
             String numero = cliente.getTelefone();
             
-            // Remove o '+' e qualquer outro caractere que não seja um dígito
+            
             String numeroLimpo = numero.replaceAll("[^0-9]", "");
             
             String urlWhatsapp = "https://wa.me/" + numeroLimpo;
 
             return new RedirectView(urlWhatsapp);
         } else {
-            // Se o cliente não for encontrado, redireciona para a lista de clientes
+            
             return new RedirectView("/clientes");
         }
     }
