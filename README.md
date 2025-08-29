@@ -1,1 +1,1 @@
-Desenvolvendo um site para o resturante da minha mae, com java spring boot e front end com javascript, html e css  , ultilizando postman para teste de api.
+Tentei criar uma pagina de log in para clientes poderem fazer compras e o site nao funcinou mais. vou comecar outro do zero e adicionar essa funcionalidade no fim. vou deixar esse repositorio por experiencia aprendida
